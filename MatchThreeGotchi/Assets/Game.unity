@@ -124,6 +124,7 @@ GameObject:
   - component: {fileID: 317788824}
   - component: {fileID: 317788823}
   - component: {fileID: 317788822}
+  - component: {fileID: 317788826}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -154,7 +155,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0.9338235, g: 0.9338235, b: 0.9338235, a: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -193,4 +194,63 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &317788826
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 317788821}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c99a1f14c22420f4da85c4057c433f2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &1310958409
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1310958411}
+  - component: {fileID: 1310958410}
+  m_Layer: 0
+  m_Name: BoardController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1310958410
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1310958409}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8100163249e794e41b46e91c689bbc8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flavours:
+  - {fileID: 21300000, guid: facc0b58908d39b408e9332e9b6d724d, type: 3}
+  - {fileID: 21300000, guid: 239b3acc38f05a54b8e281eb157b3f9c, type: 3}
+  - {fileID: 21300000, guid: d3f45a08f37ee0a4fb625b0dd45d512e, type: 3}
+  - {fileID: 21300000, guid: ccf8508a9bff0194ea62e6d3e85340eb, type: 3}
+  - {fileID: 21300000, guid: ffc8ad58813e0964d835c1c954ef3ad1, type: 3}
+  - {fileID: 21300000, guid: 2f0e8b3063aca2c4d9de53b6ead5550e, type: 3}
+  tilePrefab: {fileID: 1873437219663164, guid: 9ebbea18415a7c146a24f6a47005b4e7, type: 2}
+--- !u!4 &1310958411
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1310958409}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
