@@ -46,7 +46,7 @@ public class Piece : MonoBehaviour {
                 Select();
             } else {
                 //This is the second piece selected; we deselect the first one and swap if adjacent
-                //TODO: Swap here!
+                BoardController.instance.SwapPieces(this.gameObject, previousSelected.gameObject);
                 previousSelected.Deselect();
             }
         }
