@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Piece : MonoBehaviour {
+public class Piece : MonoBehaviour
+{
 
     private Sprite flavour;
     private SpriteRenderer sr;
@@ -14,53 +15,48 @@ public class Piece : MonoBehaviour {
     public int row;
     public int col;
 
-    public Sprite Flavour
-    {
-        get
-        {
+    public Sprite Flavour {
+        get {
             return flavour;
         }
 
-        set
-        {
+        set {
             flavour = value;
             sr.sprite = flavour;
         }
     }
 
-    private void Awake()
-    {
+    private void Awake() {
         sr = this.gameObject.GetComponent<SpriteRenderer>();
     }
 
-    private void OnMouseDown()
-    {
-        if (isSelected)
-        {
+    private void OnMouseDown() {
+        //TODO: Communicate to some sort of MouseListener? Delegate/Event?
+
+        if (isSelected) {
             //This Piece is already selected and clicked again; deselect it
             Deselect();
+        } else if (previousSelected == null) {
+            //There is no Piece selected yet; select this
+            Select();
+        } else if (!BoardController.AreAdjacent(this.gameObject, previousSelected.gameObject)) {
+            //The second selected Piece is not adjacent, we select it instead of the previous one
+            previousSelected.Deselect();
+            Select();
         } else {
-            if (previousSelected == null)
-            {
-                //There is no Piece selected yet; select it
-                Select();
-            } else {
-                //This is the second piece selected; we deselect the first one and swap if adjacent
-                BoardController.instance.SwapPieces(this.gameObject, previousSelected.gameObject);
-                previousSelected.Deselect();
-            }
+            //This second Piece is adjacent; we deselect the first one and swap
+            BoardController.instance.SwapPieces(this.gameObject, previousSelected.gameObject);
+            previousSelected.Deselect();
         }
     }
 
-    private void Select()
-    {
+    private void Select() {
         isSelected = true;
         sr.color = selectedColor;
         previousSelected = this;
     }
 
-    private void Deselect()
-    {
+    private void Deselect() {
         isSelected = false;
         sr.color = Color.white;
         previousSelected = null;
