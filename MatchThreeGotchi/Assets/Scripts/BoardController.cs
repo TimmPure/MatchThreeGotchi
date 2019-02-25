@@ -79,7 +79,12 @@ public class BoardController : MonoBehaviour {
     public void SwapPieces(GameObject p1, GameObject p2)
     {
         Vector2 temp = p2.transform.position;
+        Transform tempParent = p2.transform.parent;
+
         p2.transform.position = p1.transform.position;
+        p2.transform.parent = p1.transform.parent;
+
         p1.transform.position = temp;
+        p1.transform.parent = tempParent;
     }
 }
