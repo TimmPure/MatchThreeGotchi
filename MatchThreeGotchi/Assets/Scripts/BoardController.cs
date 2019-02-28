@@ -56,6 +56,10 @@ public class BoardController : MonoBehaviour
         }
     }
 
+    void SpawnPiece(GridTile tile) {
+        
+    }
+
     void SpawnPieces() {
         for (int i = 0; i < cols; i++) {
             for (int j = 0; j < rows; j++) {
@@ -126,8 +130,7 @@ public class BoardController : MonoBehaviour
         int verticalCounter = 1;
         GridTile inspectedTile = tile;
 
-        destroyListHorizontal.Clear();
-        destroyListVertical.Clear();
+        
 
         destroyListHorizontal.Add(tile);
 
@@ -147,18 +150,20 @@ public class BoardController : MonoBehaviour
 
 
         destroyListVertical.Add(tile);
+        
+
         inspectedTile = tile;
 
-        while (inspectedTile.UpNeighbour != null && inspectedTile.UpNeighbour.Piece != null && inspectedTile.UpNeighbour.Piece.FlavourIndex == flavour) {
-            inspectedTile = inspectedTile.UpNeighbour;
+        while (inspectedTile.DownNeighbour != null && inspectedTile.DownNeighbour.Piece != null && inspectedTile.DownNeighbour.Piece.FlavourIndex == flavour) {
+            inspectedTile = inspectedTile.DownNeighbour;
             verticalCounter++;
             destroyListVertical.Add(inspectedTile);
         }
 
         inspectedTile = tile;
 
-        while (inspectedTile.DownNeighbour != null && inspectedTile.DownNeighbour.Piece != null && inspectedTile.DownNeighbour.Piece.FlavourIndex == flavour) {
-            inspectedTile = inspectedTile.DownNeighbour;
+        while (inspectedTile.UpNeighbour != null && inspectedTile.UpNeighbour.Piece != null && inspectedTile.UpNeighbour.Piece.FlavourIndex == flavour) {
+            inspectedTile = inspectedTile.UpNeighbour;
             verticalCounter++;
             destroyListVertical.Add(inspectedTile);
         }
@@ -183,10 +188,28 @@ public class BoardController : MonoBehaviour
         foreach (GridTile tile in destroyListVertical) {
             tile.DestroyPiece();
         }
+        
     }
 
-    void CollapseColumns() {
+    //void CollapseColumn(int i) {
+    //    //Determine upperTile
+    //    GridTile upperTile;
 
-    }
+    //    do {
+    //        GridTile inspectedTile = upperTile;
+
+    //        while (inspectedTile.UpNeighbour != null) {
+    //            inspectedTile.SwapPieces(inspectedTile.UpNeighbour);
+    //            inspectedTile = inspectedTile.UpNeighbour;
+    //        }
+    //        SpawnPiece(inspectedTile);
+    //        if(upperTile.DownNeighbour != null) {
+    //            upperTile = upperTile.DownNeighbour;
+    //        }
+    //    } while (upperTile.DownNeighbour != null && upperTile.DownNeighbour.Piece == null);
+
+    //    destroyListHorizontal.Clear();
+    //    destroyListVertical.Clear();
+    //}
 
 }
