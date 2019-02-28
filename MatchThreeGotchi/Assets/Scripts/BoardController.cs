@@ -69,6 +69,7 @@ public class BoardController : MonoBehaviour
         }
     }
 
+    //TODO: move to Tile?
     public void SwapPieces(GameObject p1, GameObject p2) {
         if (!AreAdjacent(p1, p2)) {
             return;
@@ -84,7 +85,6 @@ public class BoardController : MonoBehaviour
         p1.transform.parent = tempParent;
     }
 
-    //Are TILES adjacent? I.e. is tileA a nieghbour of tileB?
     public static bool AreAdjacent(GameObject obj1, GameObject obj2) {
         if (obj1 == obj2) {
             Debug.LogWarning("BC.AreAdjacent() is checking if obj is adjacent to itsself...");
