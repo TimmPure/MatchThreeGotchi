@@ -5,6 +5,7 @@ using UnityEngine;
 public class Piece : MonoBehaviour
 {
 
+    private int flavourIndex;
     private Sprite flavour;
     private SpriteRenderer sr;
 
@@ -23,6 +24,16 @@ public class Piece : MonoBehaviour
         set {
             flavour = value;
             sr.sprite = flavour;
+        }
+    }
+
+    public int FlavourIndex {
+        get {
+            return flavourIndex;
+        }
+
+        set {
+            flavourIndex = value;
         }
     }
 

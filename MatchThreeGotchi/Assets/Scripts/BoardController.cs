@@ -57,7 +57,9 @@ public class BoardController : MonoBehaviour
             for (int j = 0; j < rows; j++) {
                 GameObject obj = Instantiate(piecePrefab, new Vector2(i, j), Quaternion.identity, grid[i, j].transform) as GameObject;
                 obj.name = "Piece ( " + i + " , " + j + " )";
-                obj.GetComponent<Piece>().Flavour = flavours[Random.Range(0, flavours.Length)];
+                int flavourIndex = Random.Range(0, flavours.Length);
+                obj.GetComponent<Piece>().Flavour = flavours[flavourIndex];
+                obj.GetComponent<Piece>().FlavourIndex = flavourIndex;
                 pieces[i, j] = obj;
             }
         }
