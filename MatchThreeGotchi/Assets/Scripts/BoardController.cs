@@ -13,6 +13,8 @@ public class BoardController : MonoBehaviour
     public static int rows = 9;
 
     private GridTile selectedTile = null;
+    private List<GridTile> destroyListHorizontal = new List<GridTile>();
+    private List<GridTile> destroyListVertical = new List<GridTile>();
 
     void Start() {
         grid = new GridTile[cols, rows];
@@ -79,6 +81,10 @@ public class BoardController : MonoBehaviour
     }
 
     void OnTileClicked(GridTile tile) {
+        if (tile.Piece == null) {
+            Debug.Log("Empty tile selected.");
+            return;
+        }
         if (selectedTile == tile) {
             //This Tile is already selected and clicked again; deselect it
             tile.Deselect();
@@ -104,10 +110,13 @@ public class BoardController : MonoBehaviour
 
                 //Check if the swap makes a match, if not we swap back/don't swap
                 selectedTile.SwapPieces(tile);
+                
             }
 
             selectedTile.Deselect();
             selectedTile = null;
+
+            DestroyMatchedPieces();
         }
     }
 
@@ -116,30 +125,50 @@ public class BoardController : MonoBehaviour
         int horizontalCounter = 1;
         int verticalCounter = 1;
         GridTile inspectedTile = tile;
-        while( inspectedTile.RightNeighbour != null && inspectedTile.RightNeighbour.Piece.FlavourIndex == flavour) {
+
+        destroyListHorizontal.Clear();
+        destroyListVertical.Clear();
+
+        destroyListHorizontal.Add(tile);
+
+        while (inspectedTile.RightNeighbour != null && inspectedTile.RightNeighbour.Piece != null && inspectedTile.RightNeighbour.Piece.FlavourIndex == flavour) {
             inspectedTile = inspectedTile.RightNeighbour;
             horizontalCounter++;
+            destroyListHorizontal.Add(inspectedTile);
         }
 
         inspectedTile = tile;
 
-        while (inspectedTile.LeftNeighbour != null && inspectedTile.LeftNeighbour.Piece.FlavourIndex == flavour) {
+        while (inspectedTile.LeftNeighbour != null && inspectedTile.LeftNeighbour.Piece != null && inspectedTile.LeftNeighbour.Piece.FlavourIndex == flavour) {
             inspectedTile = inspectedTile.LeftNeighbour;
             horizontalCounter++;
+            destroyListHorizontal.Add(inspectedTile);
         }
 
+
+        destroyListVertical.Add(tile);
         inspectedTile = tile;
 
-        while (inspectedTile.UpNeighbour != null && inspectedTile.UpNeighbour.Piece.FlavourIndex == flavour) {
+        while (inspectedTile.UpNeighbour != null && inspectedTile.UpNeighbour.Piece != null && inspectedTile.UpNeighbour.Piece.FlavourIndex == flavour) {
             inspectedTile = inspectedTile.UpNeighbour;
             verticalCounter++;
+            destroyListVertical.Add(inspectedTile);
         }
 
         inspectedTile = tile;
 
-        while (inspectedTile.DownNeighbour != null && inspectedTile.DownNeighbour.Piece.FlavourIndex == flavour) {
+        while (inspectedTile.DownNeighbour != null && inspectedTile.DownNeighbour.Piece != null && inspectedTile.DownNeighbour.Piece.FlavourIndex == flavour) {
             inspectedTile = inspectedTile.DownNeighbour;
             verticalCounter++;
+            destroyListVertical.Add(inspectedTile);
+        }
+
+        if (verticalCounter < 3) {
+            destroyListVertical.Clear();
+        }
+
+        if (horizontalCounter < 3) {
+            destroyListHorizontal.Clear();
         }
 
         return (verticalCounter >= 3 || horizontalCounter >= 3);
@@ -147,7 +176,13 @@ public class BoardController : MonoBehaviour
     }
 
     void DestroyMatchedPieces() {
+        foreach (GridTile tile in destroyListHorizontal) {
+            tile.DestroyPiece();
+        }
 
+        foreach (GridTile tile in destroyListVertical) {
+            tile.DestroyPiece();
+        }
     }
 
     void CollapseColumns() {

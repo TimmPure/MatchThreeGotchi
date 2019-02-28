@@ -118,4 +118,11 @@ public class GridTile : MonoBehaviour
         other.Piece.transform.position = this.Piece.transform.position;
         this.Piece.transform.position = tempPos;
     }
+
+    public void DestroyPiece() {
+        if (Piece != null) {
+            Destroy(Piece.gameObject);
+            Piece = null;
+        }
+    }
 }
