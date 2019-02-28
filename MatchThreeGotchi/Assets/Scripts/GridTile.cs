@@ -86,6 +86,9 @@ public class GridTile : MonoBehaviour
 
     private void Awake() {
         sr = this.gameObject.GetComponent<SpriteRenderer>();
+        if(sr == null) {
+            Debug.LogWarning("Could not find SpriteRenderer on " + this);
+        }
     }
 
     private void OnMouseDown() {

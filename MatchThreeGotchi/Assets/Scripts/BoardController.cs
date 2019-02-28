@@ -94,9 +94,64 @@ public class BoardController : MonoBehaviour
             selectedTile = tile;
         } else {
             //This second Piece is adjacent; we deselect the first one and swap
+
             selectedTile.SwapPieces(tile);
+
+            bool matchFound = CheckMatches(tile) || CheckMatches(selectedTile);
+            Debug.Log(matchFound);
+
+            if (!matchFound) {
+
+                //Check if the swap makes a match, if not we swap back/don't swap
+                selectedTile.SwapPieces(tile);
+            }
+
             selectedTile.Deselect();
             selectedTile = null;
         }
     }
+
+    bool CheckMatches(GridTile tile) {
+        int flavour = tile.Piece.FlavourIndex;
+        int horizontalCounter = 1;
+        int verticalCounter = 1;
+        GridTile inspectedTile = tile;
+        while( inspectedTile.RightNeighbour != null && inspectedTile.RightNeighbour.Piece.FlavourIndex == flavour) {
+            inspectedTile = inspectedTile.RightNeighbour;
+            horizontalCounter++;
+        }
+
+        inspectedTile = tile;
+
+        while (inspectedTile.LeftNeighbour != null && inspectedTile.LeftNeighbour.Piece.FlavourIndex == flavour) {
+            inspectedTile = inspectedTile.LeftNeighbour;
+            horizontalCounter++;
+        }
+
+        inspectedTile = tile;
+
+        while (inspectedTile.UpNeighbour != null && inspectedTile.UpNeighbour.Piece.FlavourIndex == flavour) {
+            inspectedTile = inspectedTile.UpNeighbour;
+            verticalCounter++;
+        }
+
+        inspectedTile = tile;
+
+        while (inspectedTile.DownNeighbour != null && inspectedTile.DownNeighbour.Piece.FlavourIndex == flavour) {
+            inspectedTile = inspectedTile.DownNeighbour;
+            verticalCounter++;
+        }
+
+        return (verticalCounter >= 3 || horizontalCounter >= 3);
+
+    }
+
+    void DestroyMatchedPieces() {
+
+    }
+
+    void CollapseColumns() {
+
+    }
+
 }
