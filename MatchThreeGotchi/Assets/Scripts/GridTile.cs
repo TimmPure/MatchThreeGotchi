@@ -10,6 +10,7 @@ public class GridTile : MonoBehaviour {
     private GridTile downNeighbour;
     private int row;
     private int col;
+    private Piece piece;
 
     public GridTile LeftNeighbour
     {
@@ -86,6 +87,16 @@ public class GridTile : MonoBehaviour {
         set
         {
             col = value;
+        }
+    }
+
+    public Piece Piece {
+        get {
+            return piece;
+        }
+
+        set {
+            piece = value;
         }
     }
 }

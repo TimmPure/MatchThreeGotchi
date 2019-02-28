@@ -13,9 +13,6 @@ public class Piece : MonoBehaviour
     private static Color selectedColor = new Color(.5f, .5f, .5f, 1.0f);
     private bool isSelected = false;
 
-    public int row;
-    public int col;
-
     public Sprite Flavour {
         get {
             return flavour;
