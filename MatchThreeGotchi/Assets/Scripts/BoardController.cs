@@ -8,16 +8,16 @@ public class BoardController : MonoBehaviour
     public Sprite[] flavours;
     public GameObject tilePrefab;
     public GameObject piecePrefab;
-    public GridTile[,] grid;
+    public Tile[,] grid;
     public static int cols = 9;
     public static int rows = 9;
 
-    private GridTile selectedTile = null;
-    private List<GridTile> destroyListHorizontal = new List<GridTile>();
-    private List<GridTile> destroyListVertical = new List<GridTile>();
+    private Tile selectedTile = null;
+    private List<Tile> destroyListHorizontal = new List<Tile>();
+    private List<Tile> destroyListVertical = new List<Tile>();
 
     void Start() {
-        grid = new GridTile[cols, rows];
+        grid = new Tile[cols, rows];
         FillGridWithTiles();
         SetTileNeighbours();
         SpawnPieces();
@@ -28,7 +28,7 @@ public class BoardController : MonoBehaviour
             for (int j = 0; j < rows; j++) {
                 GameObject obj = Instantiate(tilePrefab, new Vector2(i, j), Quaternion.identity, this.gameObject.transform) as GameObject;
                 obj.name = "( " + i + " , " + j + " )";
-                GridTile objTile = obj.GetComponent<GridTile>();
+                Tile objTile = obj.GetComponent<Tile>();
                 objTile.onTileClicked += OnTileClicked;
                 objTile.Row = j;
                 objTile.Col = i;
@@ -56,9 +56,9 @@ public class BoardController : MonoBehaviour
         }
     }
 
-    void SpawnPiece(GridTile tile) {
+    //void SpawnPiece(Tile tile) {
         
-    }
+    //}
 
     void SpawnPieces() {
         for (int i = 0; i < cols; i++) {
@@ -84,7 +84,7 @@ public class BoardController : MonoBehaviour
                     && Mathf.Abs(obj1.transform.position.y - obj2.transform.position.y) <= 1;
     }
 
-    void OnTileClicked(GridTile tile) {
+    void OnTileClicked(Tile tile) {
         if (tile.Piece == null) {
             Debug.Log("Empty tile selected.");
             return;
@@ -124,11 +124,11 @@ public class BoardController : MonoBehaviour
         }
     }
 
-    bool CheckMatches(GridTile tile) {
+    bool CheckMatches(Tile tile) {
         int flavour = tile.Piece.FlavourIndex;
         int horizontalCounter = 1;
         int verticalCounter = 1;
-        GridTile inspectedTile = tile;
+        Tile inspectedTile = tile;
 
         
 
@@ -181,11 +181,11 @@ public class BoardController : MonoBehaviour
     }
 
     void DestroyMatchedPieces() {
-        foreach (GridTile tile in destroyListHorizontal) {
+        foreach (Tile tile in destroyListHorizontal) {
             tile.DestroyPiece();
         }
 
-        foreach (GridTile tile in destroyListVertical) {
+        foreach (Tile tile in destroyListVertical) {
             tile.DestroyPiece();
         }
         
@@ -193,10 +193,10 @@ public class BoardController : MonoBehaviour
 
     //void CollapseColumn(int i) {
     //    //Determine upperTile
-    //    GridTile upperTile;
+    //    Tile upperTile;
 
     //    do {
-    //        GridTile inspectedTile = upperTile;
+    //        Tile inspectedTile = upperTile;
 
     //        while (inspectedTile.UpNeighbour != null) {
     //            inspectedTile.SwapPieces(inspectedTile.UpNeighbour);

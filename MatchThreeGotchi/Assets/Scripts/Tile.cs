@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GridTile : MonoBehaviour
+public class Tile : MonoBehaviour
 {
 
-    private GridTile leftNeighbour;
-    private GridTile rightNeighbour;
-    private GridTile upNeighbour;
-    private GridTile downNeighbour;
+    private Tile leftNeighbour;
+    private Tile rightNeighbour;
+    private Tile upNeighbour;
+    private Tile downNeighbour;
     private int row;
     private int col;
     private Piece piece;
@@ -17,10 +17,10 @@ public class GridTile : MonoBehaviour
     private static Color selectedColor = new Color(.5f, .5f, .5f, 1.0f);
     private bool isSelected = false;
 
-    public delegate void OnTileClicked(GridTile tile);
+    public delegate void OnTileClicked(Tile tile);
     public event OnTileClicked onTileClicked;
 
-    public GridTile LeftNeighbour {
+    public Tile LeftNeighbour {
         get {
             return leftNeighbour;
         }
@@ -29,7 +29,7 @@ public class GridTile : MonoBehaviour
             leftNeighbour = value;
         }
     }
-    public GridTile RightNeighbour {
+    public Tile RightNeighbour {
         get {
             return rightNeighbour;
         }
@@ -38,7 +38,7 @@ public class GridTile : MonoBehaviour
             rightNeighbour = value;
         }
     }
-    public GridTile UpNeighbour {
+    public Tile UpNeighbour {
         get {
             return upNeighbour;
         }
@@ -47,7 +47,7 @@ public class GridTile : MonoBehaviour
             upNeighbour = value;
         }
     }
-    public GridTile DownNeighbour {
+    public Tile DownNeighbour {
         get {
             return downNeighbour;
         }
@@ -109,7 +109,7 @@ public class GridTile : MonoBehaviour
         sr.color = Color.white;
     }
 
-    public void SwapPieces(GridTile other) {
+    public void SwapPieces(Tile other) {
         Piece temp = other.Piece;
         other.Piece = this.Piece;
         this.Piece = temp;
