@@ -64,6 +64,7 @@ public class BoardController : MonoBehaviour
                 obj.GetComponent<Piece>().Flavour = flavours[flavourIndex];
                 obj.GetComponent<Piece>().FlavourIndex = flavourIndex;
                 pieces[i, j] = obj;
+                grid[i, j].Piece = obj.GetComponent<Piece>();
             }
         }
     }
