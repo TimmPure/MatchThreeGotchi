@@ -9,7 +9,6 @@ public class Piece : MonoBehaviour
     private Sprite flavour;
     private SpriteRenderer sr;
 
-
     public Sprite Flavour {
         get {
             return flavour;
